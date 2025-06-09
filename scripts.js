@@ -245,18 +245,3 @@ projectModal.addEventListener('click', (e) => {
         closeProjectModal();
     }
 });
-
-// Contact Form Submission
-const contactForm = document.getElementById('contact-form');
-
-contactForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-
-    const name = document.getElementById('name').value;
-    const email = document.getElementById('email').value;
-    const message = document.getElementById('message').value;
-
-    // This is a demo form - in a real application, you would send this data to a server
-    alert(`Teşekkürler ${name}! Mesajınız alındı. En kısa sürede size dönüş yapacağım.`);
-    contactForm.reset();
-});
