@@ -3,417 +3,1095 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>İzzet Aydın | Software Engineer</title>
-    <meta name="description" content="İzzet Aydın - Yazılım Mühendisi ve Web Geliştirici. Kişisel portfolyo ve özgeçmiş sitesi.">
-    <meta name="keywords" content="İzzet Aydın, yazılım mühendisi, web geliştirici, portfolyo, özgeçmiş">
-    <!-- s3 çalışıyor   -->
-    <!-- Favicon -->
-    <link rel="icon" href="favicon.png" type="image/png">
-    
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <!-- Font Awesome -->
+    <title>İzzet Aydın | Yazılım Mühendisi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <!-- Navigation -->
-    <nav>
-        <div class="container">
-            <a href="#" class="nav-logo">{ İzzet Aydın }</a>
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-            <ul class="nav-links">
-                <li><a href="#about">Hakkımda</a></li>
-                <li><a href="#experience">İş Deneyimi</a></li>
-                <li><a href="#education">Eğitim</a></li>
-                <li><a href="#projects">Projeler</a></li>
-                <li><a href="#skills">Beceriler</a></li>
-                <li><a href="#contact">İletişim</a></li>
-            </ul>
-        </div>
-    </nav>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1e3a8a',
+                        secondary: '#3b82f6',
+                        accent: '#0ea5e9',
+                        dark: '#0f172a',
+                        light: '#f8fafc'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+        }
+        
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.4);
+        }
+        
+        .skill-pill:hover {
+            transform: translateY(-2px);
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: #3b82f6;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .active-nav::after {
+            width: 100%;
+        }
+        
+        .section-fade {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        
+        .section-fade.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
-    <!-- Header/Hero Section -->
-    <header>
-        <div class="header-content">
-            <h1>İzzet Aydın</h1>
-            <p>Yazılım Mühendisi & <span class="typed-text" data-typed='["Web Geliştirici", "DevOps Meraklısı", "Linux Uzmanı"]'>Web Geliştirici</span></p>
-            <div class="header-scroll">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"></path>
-                </svg>
-            </div>
+        .timeline-item {
+            position: relative;
+            padding-left: 28px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 2px;
+            background-color: #e5e7eb;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: -5px;
+            top: 6px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #3b82f6;
+            border: 2px solid white;
+            z-index: 1;
+        }
+
+        .timeline-item:last-child::before {
+            height: 15px;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+    <!-- Header -->
+    <header class="fixed w-full bg-white bg-opacity-95 shadow-sm z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="#hero" class="text-2xl font-bold text-primary flex items-center">
+                <span class="text-accent mr-1">&lt;</span>İzzet Aydın<span class="text-accent ml-1">/&gt;</span>
+            </a>
+            
+            <button id="mobile-menu-button" class="md:hidden text-gray-700 focus:outline-none">
+                <i class="fas fa-bars text-xl"></i>
+            </button>
+            
+            <nav id="desktop-menu" class="hidden md:flex space-x-8">
+                <a href="#about" class="nav-link font-medium text-gray-700 hover:text-primary transition-colors">Hakkımda</a>
+                <a href="#experience" class="nav-link font-medium text-gray-700 hover:text-primary transition-colors">Deneyim</a>
+                <a href="#education" class="nav-link font-medium text-gray-700 hover:text-primary transition-colors">Eğitim</a>
+                <a href="#skills" class="nav-link font-medium text-gray-700 hover:text-primary transition-colors">Beceriler</a>
+                <a href="#projects" class="nav-link font-medium text-gray-700 hover:text-primary transition-colors">Projeler</a>
+                <a href="#interests" class="nav-link font-medium text-gray-700 hover:text-primary transition-colors">İlgi Alanları</a>
+                <a href="#contact" class="nav-link font-medium text-gray-700 hover:text-primary transition-colors">İletişim</a>
+            </nav>
         </div>
+        
+        <!-- Mobile Menu -->
+        <nav id="mobile-menu" class="hidden bg-white px-4 py-3 shadow-lg md:hidden">
+            <div class="flex flex-col space-y-3">
+                <a href="#about" class="font-medium text-gray-700 hover:text-primary transition-colors">Hakkımda</a>
+                <a href="#experience" class="font-medium text-gray-700 hover:text-primary transition-colors">Deneyim</a>
+                <a href="#education" class="font-medium text-gray-700 hover:text-primary transition-colors">Eğitim</a>
+                <a href="#skills" class="font-medium text-gray-700 hover:text-primary transition-colors">Beceriler</a>
+                <a href="#projects" class="font-medium text-gray-700 hover:text-primary transition-colors">Projeler</a>
+                <a href="#interests" class="font-medium text-gray-700 hover:text-primary transition-colors">İlgi Alanları</a>
+                <a href="#contact" class="font-medium text-gray-700 hover:text-primary transition-colors">İletişim</a>
+            </div>
+        </nav>
     </header>
 
-    <main>
-        <!-- About Section -->
-        <section id="about">
-            <div class="container">
-                <h2 class="fade-in">Hakkımda</h2>
-                <div class="profile fade-in">
-                    <img class="profile-image" src="a.jpg" alt="">
-                    <div class="social-links">
-                        <a href="https://linkedin.com/in/izzet-aydın-556087203/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="https://github.com/izzetaydin" target="_blank"><i class="fab fa-github"></i></a>
+    <!-- Hero Section -->
+    <section id="hero" class="gradient-bg min-h-screen flex items-center pt-16">
+        <div class="container mx-auto px-4 py-16 md:py-32">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 text-center md:text-left text-white">
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
+                        Merhaba, ben <span class="text-blue-200">İzzet Aydın</span>
+                    </h1>
+                    <h2 class="text-xl md:text-2xl lg:text-3xl font-medium mb-6">
+                        Yazılım Mühendisliği Öğrencisi & Web Geliştirici
+                    </h2>
+                    <p class="text-lg md:text-xl opacity-90 mb-8 max-w-2xl">
+                        Konya Teknik Üniversitesi'nde yazılım mühendisliği öğrencisi ve freelance web geliştirici olarak, 
+                        bulut bilişim ve DevOps alanlarında uzmanlaşmayı hedefliyorum.
+                    </p>
+                    <div class="flex flex-wrap justify-center md:justify-start gap-4">
+                        <a href="#contact" class="bg-white text-primary font-medium px-6 py-3 rounded-lg hover:bg-blue-50 transition-colors shadow-lg">
+                            İletişime Geç
+                        </a>
+                        <a href="#projects" class="bg-transparent border-2 border-white text-white font-medium px-6 py-3 rounded-lg hover:bg-white hover:bg-opacity-10 transition-colors">
+                            Projelerimi Gör
+                        </a>
                     </div>
                 </div>
-                
-                <div class="about-content fade-in">
-                    <p>Ben İzzet Aydın, yazılım mühendisliği 3. sınıf öğrencisiyim ve aynı zamanda web geliştirici olarak çalışıyorum. Eğitim hayatıma Atatürk Üniversitesi'nde başladım ve şu anda Konya Teknik Üniversitesi'nde devam ediyorum.</p>
-                    
-                    <p>Geçmişte, WordPress ile birçok başarılı web sitesi geliştirdim ve yayınladım. Kullanıcı dostu ve işlevsel web çözümleri üretme konusundaki yetkinliğe sahibim. Aynı zamanda Linux sistemleri ve DevOps alanlarında da bilgi ve deneyim sahibiyim.</p>
-                    
-                    <p>Gelecekte, DevOps ve bulut bilişim alanlarında kariyer yapmayı hedefliyorum. Teknolojinin sürekli evrildiği bu alanlarda, kendimi geliştirmek ve yeniliklere ayak uydurmak için kararlıyım.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Experience Section -->
-        <section id="experience">
-            <div class="container">
-                <h2 class="fade-in">İş Deneyimi</h2>
-                
-                <div class="timeline">
-                    <div class="experience-item fade-in">
-                        <h3>Freelance Web Geliştirici</h3>
-                        <div class="date">2023 - Mevcut durum</div>
-                        <div class="location">Furkan Özgür Media - Şanlıurfa, Türkiye</div>
-                        <p>Reklam alanında faaliyet gösteren Furkan Özgür Media şirketinde, web tabanlı projelerde freelance olarak görev aldım. Şirketin web geliştirme ihtiyaçları doğrultusunda çözümler üreterek müşteri memnuniyetini artırdım.</p>
-                        <div class="skill-tags">
-                            <span class="skill-tag">HTML</span>
-                            <span class="skill-tag">CSS</span>
-                            <span class="skill-tag">JavaScript</span>
-                            <span class="skill-tag">Web Development</span>
+                <div class="md:w-1/2 mt-12 md:mt-0 flex justify-center">
+                    <div class="relative w-64 h-64 md:w-80 md:h-80">
+                        <div class="absolute inset-0 rounded-full bg-blue-200 bg-opacity-30 animate-pulse"></div>
+                        <div class="absolute inset-2 rounded-full bg-white flex items-center justify-center overflow-hidden">
+                            <img src="a.jpg" alt="Profil Fotoğrafı" class="w-full h-full object-cover rounded-full" />
                         </div>
-                    </div>
-                    
-                    <div class="experience-item fade-in">
-                        <h3>IT Teknisyeni</h3>
-                        <div class="date">2021 - 2023</div>
-                        <div class="location">Bima Bilgisayar - Şanlıurfa, Türkiye</div>
-                        <p>Ortaokul ve lise yaz tatillerinde Bima Bilgisayar'da teknik servis ve satış elemanı olarak çalıştım. Müşterilere donanım ve yazılım konularında destek sağladım, bilgisayar sorunlarını çözdüm ve satış süreçlerinde aktif rol aldım.</p>
-                        <div class="skill-tags">
-                            <span class="skill-tag">Donanım</span>
-                            <span class="skill-tag">Teknik Servis</span>
-                            <span class="skill-tag">Müşteri İlişkileri</span>
+                        <div class="absolute -bottom-2 -right-2 bg-accent text-white rounded-full w-16 h-16 flex items-center justify-center shadow-lg">
+                            <i class="fas fa-code text-2xl"></i>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+            
+            <div class="mt-16 md:mt-24 flex justify-center">
+                <a href="#about" class="text-white animate-bounce">
+                    <i class="fas fa-chevron-down text-2xl"></i>
+                </a>
+            </div>
+        </div>
+    </section>
 
-        <!-- Education Section -->
-        <section id="education">
-            <div class="container">
-                <h2 class="fade-in">Eğitim</h2>
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="section-fade">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">
+                    <span class="border-b-4 border-accent pb-2">Hakkımda</span>
+                </h2>
                 
-                <div class="timeline">
-                    <div class="education-item fade-in">
-                        <h3>Yazılım Mühendisliği</h3>
-                        <div class="date">2022 - 2026</div>
-                        <div class="location">Konya Teknik Üniversitesi - Konya, Türkiye</div>
-                        <p><a href="https://www.ktun.edu.tr" target="_blank">www.ktun.edu.tr</a></p>
-                    </div>
+                <div class="max-w-4xl mx-auto">
+                    <p class="text-lg mb-6 leading-relaxed">
+                        Konya Teknik Üniversitesi'nde Yazılım Mühendisliği 3. sınıf öğrencisiyim. Eğitim hayatıma Atatürk Üniversitesi'nde başladım ve şu anda Konya Teknik Üniversitesi'nde devam ediyorum. Kendimi algoritmalar, veri yapıları, yazılım mimarisi, nesne yönelimli programlama, veritabanı yönetimi ve yapay zekâ gibi temel bilgisayar bilimleri konularında geliştirdim.
+                    </p>
                     
-                    <div class="education-item fade-in">
-                        <h3>Bilgisayar Mühendisliği</h3>
-                        <div class="date">2021 - 2022</div>
-                        <div class="location">Atatürk Üniversitesi - Erzurum, Türkiye</div>
-                        <p><a href="https://atauni.edu.tr" target="_blank">atauni.edu.tr</a></p>
-                    </div>
+                    <p class="text-lg mb-6 leading-relaxed">
+                        Geçmişte, <strong class="text-primary">WordPress</strong> ile birçok başarılı web sitesi geliştirdim ve yayınladım. Kullanıcı dostu ve işlevsel web çözümleri üretme konusundaki yetkinliğe sahibim. Aynı zamanda <strong class="text-primary">Linux sistemleri</strong> ve <strong class="text-primary">DevOps</strong> alanlarında da bilgi ve deneyim sahibiyim.
+                    </p>
+                    
+                    <p class="text-lg mb-6 leading-relaxed">
+                        Çok yönlü bir yazılım geliştirici olarak, farklı teknolojilere hızlıca adapte olabilen ve proje bazlı düşünmeyi seven biriyim. <strong class="text-primary">.NET teknolojileriyle</strong> (özellikle ASP.NET Core, MVC ve Razor Pages) birçok back-end uygulaması geliştirdim. Aynı zamanda <strong class="text-primary">Flutter</strong> ile mobil uygulamalar geliştiriyorum. Backend tarafında <strong class="text-primary">Node.js</strong> ve Express ile RESTful API'ler yazıyor, veritabanı olarak <strong class="text-primary">PostgreSQL, MySQL ve MongoDB</strong> kullanıyorum.
+                    </p>
+                    
+                    <p class="text-lg leading-relaxed">
+                        Gelecekte, <strong class="text-primary">DevOps ve bulut bilişim</strong> alanlarında kariyer yapmayı hedefliyorum. Teknolojinin sürekli evrildiği bu alanlarda, kendimi geliştirmek ve yeniliklere ayak uydurmak için kararlıyım. Uzun vadede, büyük ölçekli sistemlerin mimarisini tasarlayan ve sürdüren bir yazılım mimarı olmak istiyorum.
+                    </p>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Projects Section -->
-        <section id="projects">
-            <div class="container">
-                <h2 class="fade-in">Projeler</h2>
+    <!-- Experience Section -->
+    <section id="experience" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="section-fade">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">
+                    <span class="border-b-4 border-accent pb-2">İş Deneyimi</span>
+                </h2>
                 
-                <div class="projects-grid">
-                    <div class="project-card fade-in">
-                        <div class="project-img">
-                            <img src="https://via.placeholder.com/500x300?text=RTS+Tarim" alt="RTS Tarım Web Sitesi">
-                        </div>
-                        <div class="project-content">
-                            <h3>RTS Tarım Web Sitesi</h3>
-                            <div class="date">Ocak 2023</div>
-                            <p>rtstarim.com.tr sitesini RTS Tarım'ın istekleri üzerine domain hosting kurulumu ve websitesi çalışmasını onlar için yürüttüm.</p>
-                            <div class="project-links">
-                                <a href="https://rtstarim.com.tr/" target="_blank">Ziyaret Et <i class="fas fa-external-link-alt"></i></a>
+                <div class="max-w-4xl mx-auto space-y-12">
+                    <!-- Experience 1 -->
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="bg-white rounded-xl shadow-md p-6">
+                            <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
+                                <h3 class="text-xl font-bold text-primary">Freelance Web Geliştirici</h3>
+                                <div class="flex items-center mt-2 md:mt-0">
+                                    <span class="bg-blue-100 text-primary px-3 py-1 rounded-full text-sm font-medium">2023 - Mevcut</span>
+                                </div>
                             </div>
-                            <div class="skill-tags">
-                                <span class="skill-tag">Web Development</span>
-                                <span class="skill-tag">Domain & Hosting</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Additional project placeholders to demonstrate layout -->
-                    <div class="project-card fade-in">
-                        <div class="project-img">
-                            <img src="https://via.placeholder.com/500x300?text=Linux+Server" alt="Linux Server Configuration">
-                        </div>
-                        <div class="project-content">
-                            <h3>Linux Server Yapılandırma</h3>
-                            <div class="date">Mart 2024</div>
-                            <p>Web uygulamaları için Linux tabanlı sunucu yapılandırması ve güvenlik optimizasyonu projesi.</p>
-                            <div class="skill-tags">
-                                <span class="skill-tag">Linux</span>
-                                <span class="skill-tag">Server Config</span>
-                                <span class="skill-tag">Security</span>
+                            <h4 class="text-lg font-medium mb-3">Furkan Özgür Media - Şanlıurfa, Türkiye</h4>
+                            <p class="text-gray-600">
+                                Reklam alanında faaliyet gösteren Furkan Özgür Media şirketinde, web tabanlı projelerde freelance olarak görev aldım. Şirketin web geliştirme ihtiyaçları doğrultusunda çözümler üreterek müşteri memnuniyetini artırdım.
+                            </p>
+                            <div class="flex flex-wrap gap-2 mt-4">
+                                <span class="bg-blue-50 text-primary px-3 py-1 rounded-full text-sm font-medium">WordPress</span>
+                                <span class="bg-blue-50 text-primary px-3 py-1 rounded-full text-sm font-medium">Web Geliştirme</span>
+                                <span class="bg-blue-50 text-primary px-3 py-1 rounded-full text-sm font-medium">Müşteri İlişkileri</span>
                             </div>
                         </div>
                     </div>
                     
-                    <div class="project-card fade-in">
-                        <div class="project-img">
-                            <img src="https://via.placeholder.com/500x300?text=Portfolio" alt="Portfolio Website">
-                        </div>
-                        <div class="project-content">
-                            <h3>Kişisel Portfolyo</h3>
-                            <div class="date">Nisan 2024</div>
-                            <p>Modern web teknolojileri kullanarak geliştirdiğim kişisel portfolyo ve CV sitesi.</p>
-                            <div class="skill-tags">
-                                <span class="skill-tag">HTML5</span>
-                                <span class="skill-tag">CSS3</span>
-                                <span class="skill-tag">JavaScript</span>
-                                <span class="skill-tag">Responsive Design</span>
+                    <!-- Experience 2 -->
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="bg-white rounded-xl shadow-md p-6">
+                            <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
+                                <h3 class="text-xl font-bold text-primary">IT Teknisyeni</h3>
+                                <div class="flex items-center mt-2 md:mt-0">
+                                    <span class="bg-blue-100 text-primary px-3 py-1 rounded-full text-sm font-medium">2021 - 2023</span>
+                                </div>
+                            </div>
+                            <h4 class="text-lg font-medium mb-3">Bima Bilgisayar - Şanlıurfa, Türkiye</h4>
+                            <p class="text-gray-600">
+                                Ortaokul ve lise yaz tatillerinde Bima Bilgisayar'da teknik servis ve satış elemanı olarak çalıştım. Müşterilere donanım ve yazılım konularında destek sağladım, bilgisayar sorunlarını çözdüm ve satış süreçlerinde aktif rol aldım.
+                            </p>
+                            <div class="flex flex-wrap gap-2 mt-4">
+                                <span class="bg-blue-50 text-primary px-3 py-1 rounded-full text-sm font-medium">Teknik Destek</span>
+                                <span class="bg-blue-50 text-primary px-3 py-1 rounded-full text-sm font-medium">Donanım</span>
+                                <span class="bg-blue-50 text-primary px-3 py-1 rounded-full text-sm font-medium">Satış</span>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Skills Section -->
-        <section id="skills">
-            <div class="container">
-                <h2 class="fade-in">Beceriler</h2>
+    <!-- Education Section -->
+    <section id="education" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="section-fade">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">
+                    <span class="border-b-4 border-accent pb-2">Eğitim</span>
+                </h2>
                 
-                <div class="skills-container">
-                    <div class="skills-category fade-in">
-                        <h3>Web Geliştirme</h3>
-                        <ul class="skills-list">
-                            <li>HTML</li>
-                            <li>CSS</li>
-                            <li>JavaScript</li>
-                            <li>Web API</li>
-                        </ul>
+                <div class="max-w-4xl mx-auto space-y-12">
+                    <!-- Education 1 -->
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="bg-white rounded-xl shadow-md p-6">
+                            <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
+                                <h3 class="text-xl font-bold text-primary">Yazılım Mühendisliği</h3>
+                                <div class="flex items-center mt-2 md:mt-0">
+                                    <span class="bg-blue-100 text-primary px-3 py-1 rounded-full text-sm font-medium">2022 - 2026</span>
+                                </div>
+                            </div>
+                            <h4 class="text-lg font-medium mb-3">Konya Teknik Üniversitesi - Konya, Türkiye</h4>
+                            <p class="text-gray-600">
+                                Yazılım mühendisliği alanında lisans eğitimime devam ediyorum. Algoritmalar, veri yapıları, yazılım mimarisi, nesne yönelimli programlama ve veritabanı yönetimi gibi konularda kendimi geliştiriyorum.
+                            </p>
+                            <div class="mt-4">
+                                <a href="https://www.ktun.edu.tr" target="_blank" class="text-primary hover:text-accent transition-colors flex items-center">
+                                    <i class="fas fa-external-link-alt mr-2"></i> www.ktun.edu.tr
+                                </a>
+                            </div>
+                        </div>
                     </div>
                     
-                    <div class="skills-category fade-in">
-                        <h3>Cloud & DevOps</h3>
-                        <ul class="skills-list">
-                            <li>Linux</li>
-                            <li>Linux Servers</li>
-                            <li>Docker</li>
-                            <li>Networking (TCP/IP, LAN/WLAN, Wi-Fi, VPN)</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="skills-category fade-in">
-                        <h3>Diğer</h3>
-                        <ul class="skills-list">
-                            <li>SQL</li>
-                            <li>MySQL</li>
-                            <li>Git</li>
-                            <li>GitHub</li>
-                            <li>Etkili sosyal medya kullanımı</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Volunteer Section -->
-        <section id="volunteer">
-            <div class="container">
-                <h2 class="fade-in">Gönüllülük</h2>
-                
-                <div class="timeline">
-                    <div class="volunteer-item fade-in">
-                        <h3>Konya Teknik Bilişim Topluluğu</h3>
-                        <div class="date">Eylül 2024 - Mevcut durum</div>
-                        <div class="location">Konya, Türkiye</div>
-                        <p>Konya Teknik Üniversitesi Bilişim Topluluğu'nda yönetim kurulu üyesi olarak eğitim takımını koordine ediyorum. C oryantasyon eğitimi, GNU/Linux eğitimleri, Git & Github eğitimleri düzenliyorum.</p>
-                    </div>
-                    
-                    <div class="volunteer-item fade-in">
-                        <h3>Bilgisayar Bilişim Kulübü</h3>
-                        <div class="date">Eylül 2021 - Haziran 2022</div>
-                        <div class="location">Atatürk Üniversitesi, Türkiye</div>
-                        <p>Atatürk Üniversitesi Bilgisayar Bilişim Kulübü'nde yönetim kurulu üyesi olarak eğitim takımını koordine ettim. Bu süreçte C, Python, Git & Github eğitimleri verdim.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Languages Section -->
-        <section id="languages">
-            <div class="container">
-                <h2 class="fade-in">Dil Becerileri</h2>
-                
-                <div class="languages">
-                    <div class="language-item fade-in">
-                        <h3>Türkçe</h3>
-                        <p>Anadil</p>
-                    </div>
-                    
-                    <div class="language-item fade-in">
-                        <h3>İngilizce</h3>
-                        <div class="language-level">
-                            <div class="language-skill">
-                                <span>Dinleme</span>
-                                <span>B2</span>
+                    <!-- Education 2 -->
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="bg-white rounded-xl shadow-md p-6">
+                            <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
+                                <h3 class="text-xl font-bold text-primary">Bilgisayar Mühendisliği</h3>
+                                <div class="flex items-center mt-2 md:mt-0">
+                                    <span class="bg-blue-100 text-primary px-3 py-1 rounded-full text-sm font-medium">2021 - 2022</span>
+                                </div>
                             </div>
-                            <div class="progress-bar">
-                                <div class="progress" data-width="80%"></div>
-                            </div>
-                            
-                            <div class="language-skill">
-                                <span>Okuma</span>
-                                <span>B2</span>
-                            </div>
-                            <div class="progress-bar">
-                                <div class="progress" data-width="80%"></div>
-                            </div>
-                            
-                            <div class="language-skill">
-                                <span>Yazma</span>
-                                <span>B1</span>
-                            </div>
-                            <div class="progress-bar">
-                                <div class="progress" data-width="60%"></div>
-                            </div>
-                            
-                            <div class="language-skill">
-                                <span>Konuşma Üretimi</span>
-                                <span>B1</span>
-                            </div>
-                            <div class="progress-bar">
-                                <div class="progress" data-width="60%"></div>
-                            </div>
-                            
-                            <div class="language-skill">
-                                <span>Konuşmalı Etkileşim</span>
-                                <span>B1</span>
-                            </div>
-                            <div class="progress-bar">
-                                <div class="progress" data-width="60%"></div>
+                            <h4 class="text-lg font-medium mb-3">Atatürk Üniversitesi - Erzurum, Türkiye</h4>
+                            <p class="text-gray-600">
+                                Bilgisayar mühendisliği alanında eğitimime başladım ve temel bilgisayar bilimleri konularında bilgi edindim.
+                            </p>
+                            <div class="mt-4">
+                                <a href="https://www.atauni.edu.tr" target="_blank" class="text-primary hover:text-accent transition-colors flex items-center">
+                                    <i class="fas fa-external-link-alt mr-2"></i> www.atauni.edu.tr
+                                </a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Hobbies Section -->
-        <section id="hobbies">
-            <div class="container">
-                <h2 class="fade-in">Hobiler ve İlgi Alanları</h2>
+    <!-- Volunteer Section -->
+    <section id="volunteer" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="section-fade">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">
+                    <span class="border-b-4 border-accent pb-2">Gönüllülük</span>
+                </h2>
                 
-                <div class="hobbies-grid">
-                    <div class="hobby-card fade-in">
-                        <h3>OS Testleri gerçekleştirmek</h3>
-                        <ul class="hobbies-list">
+                <div class="max-w-4xl mx-auto space-y-12">
+                    <!-- Volunteer 1 -->
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="bg-white rounded-xl shadow-md p-6">
+                            <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
+                                <h3 class="text-xl font-bold text-primary">Konya Teknik Bilişim Topluluğu</h3>
+                                <div class="flex items-center mt-2 md:mt-0">
+                                    <span class="bg-blue-100 text-primary px-3 py-1 rounded-full text-sm font-medium">Eylül 2024 - Mevcut</span>
+                                </div>
+                            </div>
+                            <h4 class="text-lg font-medium mb-3">Konya Teknik Üniversitesi - Konya, Türkiye</h4>
+                            <p class="text-gray-600">
+                                Konya Teknik Üniversitesi Bilişim Topluluğu'nda yönetim kurulu üyesi olarak eğitim takımını koordine ediyorum. C oryantasyon eğitimi, GNU/Linux eğitimleri, Git & Github eğitimleri düzenliyorum.
+                            </p>
+                            <div class="flex flex-wrap gap-2 mt-4">
+                                <span class="bg-blue-50 text-primary px-3 py-1 rounded-full text-sm font-medium">Eğitim</span>
+                                <span class="bg-blue-50 text-primary px-3 py-1 rounded-full text-sm font-medium">Koordinasyon</span>
+                                <span class="bg-blue-50 text-primary px-3 py-1 rounded-full text-sm font-medium">Liderlik</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Volunteer 2 -->
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="bg-white rounded-xl shadow-md p-6">
+                            <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
+                                <h3 class="text-xl font-bold text-primary">Bilgisayar Bilişim Kulübü</h3>
+                                <div class="flex items-center mt-2 md:mt-0">
+                                    <span class="bg-blue-100 text-primary px-3 py-1 rounded-full text-sm font-medium">Eylül 2021 - Haziran 2022</span>
+                                </div>
+                            </div>
+                            <h4 class="text-lg font-medium mb-3">Atatürk Üniversitesi - Erzurum, Türkiye</h4>
+                            <p class="text-gray-600">
+                                Atatürk Üniversitesi Bilgisayar Bilişim Kulübü'nde yönetim kurulu üyesi olarak eğitim takımını koordine ettim. Bu süreçte C, Python, Git & Github eğitimleri verdim.
+                            </p>
+                            <div class="flex flex-wrap gap-2 mt-4">
+                                <span class="bg-blue-50 text-primary px-3 py-1 rounded-full text-sm font-medium">Eğitim</span>
+                                <span class="bg-blue-50 text-primary px-3 py-1 rounded-full text-sm font-medium">Koordinasyon</span>
+                                <span class="bg-blue-50 text-primary px-3 py-1 rounded-full text-sm font-medium">Mentorluk</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="section-fade">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">
+                    <span class="border-b-4 border-accent pb-2">Becerilerim</span>
+                </h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                    <!-- Backend Development -->
+                    <div class="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition-shadow">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mr-4">
+                                <i class="fas fa-server text-primary text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold">Backend Geliştirme</h3>
+                        </div>
+                        <div class="flex flex-wrap gap-2 mt-4">
+                            <span class="skill-pill bg-blue-100 text-primary px-3 py-1 rounded-full text-sm font-medium transition-transform">.NET Core</span>
+                            <span class="skill-pill bg-blue-100 text-primary px-3 py-1 rounded-full text-sm font-medium transition-transform">ASP.NET MVC</span>
+                            <span class="skill-pill bg-blue-100 text-primary px-3 py-1 rounded-full text-sm font-medium transition-transform">Node.js</span>
+                            <span class="skill-pill bg-blue-100 text-primary px-3 py-1 rounded-full text-sm font-medium transition-transform">Express</span>
+                            <span class="skill-pill bg-blue-100 text-primary px-3 py-1 rounded-full text-sm font-medium transition-transform">RESTful API</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Web Development -->
+                    <div class="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition-shadow">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mr-4">
+                                <i class="fas fa-globe text-primary text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold">Web Geliştirme</h3>
+                        </div>
+                        <div class="flex flex-wrap gap-2 mt-4">
+                            <span class="skill-pill bg-blue-100 text-primary px-3 py-1 rounded-full text-sm font-medium transition-transform">WordPress</span>
+                            <span class="skill-pill bg-blue-100 text-primary px-3 py-1 rounded-full text-sm font-medium transition-transform">HTML/CSS</span>
+                            <span class="skill-pill bg-blue-100 text-primary px-3 py-1 rounded-full text-sm font-medium transition-transform">JavaScript</span>
+                            <span class="skill-pill bg-blue-100 text-primary px-3 py-1 rounded-full text-sm font-medium transition-transform">Responsive Design</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Mobile Development -->
+                    <div class="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition-shadow">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mr-4">
+                                <i class="fas fa-mobile-alt text-primary text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold">Mobil Geliştirme</h3>
+                        </div>
+                        <div class="flex flex-wrap gap-2 mt-4">
+                            <span class="skill-pill bg-blue-100 text-primary px-3 py-1 rounded-full text-sm font-medium transition-transform">Flutter</span>
+                            <span class="skill-pill bg-blue-100 text-primary px-3 py-1 rounded-full text-sm font-medium transition-transform">Dart</span>
+                            <span class="skill-pill bg-blue-100 text-primary px-3 py-1 rounded-full text-sm font-medium transition-transform">Cross-Platform</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Databases -->
+                    <div class="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition-shadow">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mr-4">
+                                <i class="fas fa-database text-primary text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold">Veritabanları</h3>
+                        </div>
+                        <div class="flex flex-wrap gap-2 mt-4">
+                            <span class="skill-pill bg-blue-100 text-primary px-3 py-1 rounded-full text-sm font-medium transition-transform">PostgreSQL</span>
+                            <span class="skill-pill bg-blue-100 text-primary px-3 py-1 rounded-full text-sm font-medium transition-transform">MySQL</span>
+                            <span class="skill-pill bg-blue-100 text-primary px-3 py-1 rounded-full text-sm font-medium transition-transform">MongoDB</span>
+                            <span class="skill-pill bg-blue-100 text-primary px-3 py-1 rounded-full text-sm font-medium transition-transform">SQLite</span>
+                        </div>
+                    </div>
+                    
+                    <!-- DevOps & Cloud -->
+                    <div class="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition-shadow">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mr-4">
+                                <i class="fas fa-cloud text-primary text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold">DevOps & Cloud</h3>
+                        </div>
+                        <div class="flex flex-wrap gap-2 mt-4">
+                            <span class="skill-pill bg-blue-100 text-primary px-3 py-1 rounded-full text-sm font-medium transition-transform">Docker</span>
+                            <span class="skill-pill bg-blue-100 text-primary px-3 py-1 rounded-full text-sm font-medium transition-transform">Git</span>
+                            <span class="skill-pill bg-blue-100 text-primary px-3 py-1 rounded-full text-sm font-medium transition-transform">Linux</span>
+                            <span class="skill-pill bg-blue-100 text-primary px-3 py-1 rounded-full text-sm font-medium transition-transform">Cloud Computing</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Programming Languages -->
+                    <div class="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition-shadow">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mr-4">
+                                <i class="fas fa-code text-primary text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold">Programlama Dilleri</h3>
+                        </div>
+                        <div class="flex flex-wrap gap-2 mt-4">
+                            <span class="skill-pill bg-blue-100 text-primary px-3 py-1 rounded-full text-sm font-medium transition-transform">C#</span>
+                            <span class="skill-pill bg-blue-100 text-primary px-3 py-1 rounded-full text-sm font-medium transition-transform">JavaScript</span>
+                            <span class="skill-pill bg-blue-100 text-primary px-3 py-1 rounded-full text-sm font-medium transition-transform">Python</span>
+                            <span class="skill-pill bg-blue-100 text-primary px-3 py-1 rounded-full text-sm font-medium transition-transform">Dart</span>
+                            <span class="skill-pill bg-blue-100 text-primary px-3 py-1 rounded-full text-sm font-medium transition-transform">C</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Language Skills -->
+                <div class="mt-16 max-w-4xl mx-auto">
+                    <h3 class="text-2xl font-bold mb-8 text-center">Dil Becerileri</h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <!-- Turkish -->
+                        <div class="bg-white rounded-xl shadow-md p-6">
+                            <div class="flex items-center mb-4">
+                                <div class="w-12 h-12 rounded-full bg-red-100 flex items-center justify-center mr-4">
+                                    <span class="text-2xl">🇹🇷</span>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-semibold">Türkçe</h4>
+                                    <p class="text-gray-600">Anadil</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- English -->
+                        <div class="bg-white rounded-xl shadow-md p-6">
+                            <div class="flex items-center mb-4">
+                                <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mr-4">
+                                    <span class="text-2xl">🇬🇧</span>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-semibold">İngilizce</h4>
+                                    <p class="text-gray-600">Orta Seviye (B1-B2)</p>
+                                </div>
+                            </div>
+                            <div class="mt-3 space-y-2">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-sm text-gray-600">Dinleme</span>
+                                    <span class="text-sm font-medium">B2</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2">
+                                    <div class="bg-blue-500 h-2 rounded-full" style="width: 80%"></div>
+                                </div>
+                                
+                                <div class="flex justify-between items-center">
+                                    <span class="text-sm text-gray-600">Okuma</span>
+                                    <span class="text-sm font-medium">B2</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2">
+                                    <div class="bg-blue-500 h-2 rounded-full" style="width: 80%"></div>
+                                </div>
+                                
+                                <div class="flex justify-between items-center">
+                                    <span class="text-sm text-gray-600">Yazma</span>
+                                    <span class="text-sm font-medium">B1</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2">
+                                    <div class="bg-blue-500 h-2 rounded-full" style="width: 60%"></div>
+                                </div>
+                                
+                                <div class="flex justify-between items-center">
+                                    <span class="text-sm text-gray-600">Konuşma</span>
+                                    <span class="text-sm font-medium">B1</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2">
+                                    <div class="bg-blue-500 h-2 rounded-full" style="width: 60%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="section-fade">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">
+                    <span class="border-b-4 border-accent pb-2">Projelerim</span>
+                </h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                    <!-- Project 1 -->
+                    <div class="project-card bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300">
+                        <div class="h-48 bg-gradient-to-r from-blue-500 to-indigo-600 flex items-center justify-center">
+                            <i class="fas fa-motorcycle text-white text-5xl"></i>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2">Motorcu Sosyal Medya Uygulaması</h3>
+                            <p class="text-gray-600 mb-4">
+                                Flutter, Node.js ve MongoDB kullanarak geliştirilen, motorcu kullanıcılar için sosyal medya ve rota paylaşım uygulaması.
+                            </p>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="bg-blue-100 text-primary px-2 py-1 rounded text-xs font-medium">Flutter</span>
+                                <span class="bg-blue-100 text-primary px-2 py-1 rounded text-xs font-medium">Node.js</span>
+                                <span class="bg-blue-100 text-primary px-2 py-1 rounded text-xs font-medium">MongoDB</span>
+                            </div>
+                            <button class="text-primary font-medium hover:text-accent transition-colors" onclick="showProjectDetails('project1')">
+                                Detayları Gör <i class="fas fa-arrow-right ml-1"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Project 2 -->
+                    <div class="project-card bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300">
+                        <div class="h-48 bg-gradient-to-r from-green-500 to-teal-600 flex items-center justify-center">
+                            <i class="fas fa-robot text-white text-5xl"></i>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2">TurtleBot3 Temizlik Robotu</h3>
+                            <p class="text-gray-600 mb-4">
+                                ROS Noetic ve TurtleBot3 kullanarak geliştirilen, haritalama, duvar takibi ve otonom dolaşım yapabilen temizlik robotu simülasyonu.
+                            </p>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="bg-blue-100 text-primary px-2 py-1 rounded text-xs font-medium">ROS Noetic</span>
+                                <span class="bg-blue-100 text-primary px-2 py-1 rounded text-xs font-medium">TurtleBot3</span>
+                                <span class="bg-blue-100 text-primary px-2 py-1 rounded text-xs font-medium">SLAM</span>
+                            </div>
+                            <button class="text-primary font-medium hover:text-accent transition-colors" onclick="showProjectDetails('project2')">
+                                Detayları Gör <i class="fas fa-arrow-right ml-1"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Project 3 -->
+                    <div class="project-card bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300">
+                        <div class="h-48 bg-gradient-to-r from-purple-500 to-pink-600 flex items-center justify-center">
+                            <i class="fas fa-chart-line text-white text-5xl"></i>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2">War Strategy Optimization</h3>
+                            <p class="text-gray-600 mb-4">
+                                ISOLET veri seti üzerinde War Strategy Optimization algoritması kullanarak özellik seçimi ve GPU hızlandırma projesi.
+                            </p>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="bg-blue-100 text-primary px-2 py-1 rounded text-xs font-medium">NVIDIA RAPIDS</span>
+                                <span class="bg-blue-100 text-primary px-2 py-1 rounded text-xs font-medium">cuML</span>
+                                <span class="bg-blue-100 text-primary px-2 py-1 rounded text-xs font-medium">Python</span>
+                            </div>
+                            <button class="text-primary font-medium hover:text-accent transition-colors" onclick="showProjectDetails('project3')">
+                                Detayları Gör <i class="fas fa-arrow-right ml-1"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Project 4 -->
+                    <div class="project-card bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300">
+                        <div class="h-48 bg-gradient-to-r from-red-500 to-orange-600 flex items-center justify-center">
+                            <i class="fas fa-server text-white text-5xl"></i>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2">Minimal API Servisleri</h3>
+                            <p class="text-gray-600 mb-4">
+                                Python, SQLite ve JSON tabanlı veri yönetimi ile geliştirilen minimal API servisleri ve uçtan uca küçük sistemler.
+                            </p>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="bg-blue-100 text-primary px-2 py-1 rounded text-xs font-medium">Python</span>
+                                <span class="bg-blue-100 text-primary px-2 py-1 rounded text-xs font-medium">SQLite</span>
+                                <span class="bg-blue-100 text-primary px-2 py-1 rounded text-xs font-medium">JSON</span>
+                            </div>
+                            <button class="text-primary font-medium hover:text-accent transition-colors" onclick="showProjectDetails('project4')">
+                                Detayları Gör <i class="fas fa-arrow-right ml-1"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Project 5 -->
+                    <div class="project-card bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300">
+                        <div class="h-48 bg-gradient-to-r from-yellow-500 to-amber-600 flex items-center justify-center">
+                            <i class="fab fa-wordpress text-white text-5xl"></i>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2">WordPress Web Siteleri</h3>
+                            <p class="text-gray-600 mb-4">
+                                Çeşitli müşteriler için geliştirilen, kullanıcı dostu ve işlevsel WordPress web siteleri.
+                            </p>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="bg-blue-100 text-primary px-2 py-1 rounded text-xs font-medium">WordPress</span>
+                                <span class="bg-blue-100 text-primary px-2 py-1 rounded text-xs font-medium">PHP</span>
+                                <span class="bg-blue-100 text-primary px-2 py-1 rounded text-xs font-medium">CSS</span>
+                            </div>
+                            <button class="text-primary font-medium hover:text-accent transition-colors" onclick="showProjectDetails('project5')">
+                                Detayları Gör <i class="fas fa-arrow-right ml-1"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Project Modal -->
+        <div id="project-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
+            <div class="bg-white rounded-xl max-w-3xl w-full max-h-[90vh] overflow-y-auto">
+                <div class="p-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 id="modal-title" class="text-2xl font-bold"></h3>
+                        <button onclick="closeProjectModal()" class="text-gray-500 hover:text-gray-700">
+                            <i class="fas fa-times text-xl"></i>
+                        </button>
+                    </div>
+                    <div id="modal-content"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interests Section -->
+    <section id="interests" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="section-fade">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">
+                    <span class="border-b-4 border-accent pb-2">İlgi Alanlarım</span>
+                </h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                    <!-- OS Testing -->
+                    <div class="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition-shadow">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mr-4">
+                                <i class="fab fa-linux text-primary text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold">OS Testleri</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">
+                            Boş zamanlarımda farklı Linux dağıtımlarını test eder, telefonlara custom ROM yükler ve sistemler arası optimizasyonlarla ilgilenirim.
+                        </p>
+                        <ul class="list-disc pl-5 text-gray-600 space-y-1">
                             <li>Farklı Linux dağıtımlarını denemek</li>
                             <li>Telefonlara custom ROM yüklemek ve optimizasyon yapmak</li>
                             <li>Çeşitli işletim sistemlerini test etmek ve performanslarını karşılaştırmak</li>
                         </ul>
                     </div>
                     
-                    <div class="hobby-card fade-in">
-                        <h3>Tarih</h3>
-                        <ul class="hobbies-list">
+                    <!-- History -->
+                    <div class="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition-shadow">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mr-4">
+                                <i class="fas fa-book-open text-primary text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold">Tarih</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">
+                            Tarih, siyaset ve liderlik temalı kitaplar okumaktan büyük keyif alıyorum. Özellikle 2. Dünya Savaşı üzerine araştırmalar yapıyor; Atatürk, Churchill, Hitler ve Mussolini gibi liderlerin zor dönemlerde nasıl kararlar aldığını analiz ederek sosyal ve stratejik çıkarımlar yapıyorum.
+                        </p>
+                        <ul class="list-disc pl-5 text-gray-600 space-y-1">
                             <li>Tarih kitapları okumak ve belgeseller izlemek</li>
                             <li>Özellikle 2. Dünya Savaşı üzerine araştırmalar yapmak</li>
                         </ul>
                     </div>
+                    
+                    <!-- Physical Activities -->
+                    <div class="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition-shadow">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mr-4">
+                                <i class="fas fa-dumbbell text-primary text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold">Fiziksel Aktiviteler</h3>
+                        </div>
+                        <p class="text-gray-600">
+                            Spor salonuna düzenli olarak giderek hem fiziksel hem zihinsel olarak güçlü kalmayı hedeflerim. Spor disipliniyle yazılım disiplini arasında ciddi bir paralellik olduğunu düşünüyorum.
+                        </p>
+                    </div>
                 </div>
             </div>
-        </section>
-    </main>
-
+        </div>
+    </section>
     <!-- Contact Section -->
-    <section id="contact" class="contact-section">
-        <div class="container">
-            <h2 class="fade-in">İletişim</h2>
-            
-            <div class="contact-container">
-                <div class="contact-item fade-in">
-                    <div class="contact-icon">
-                        <i class="fas fa-envelope"></i>
+    <section id="contact" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="section-fade">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">
+                    <span class="border-b-4 border-accent pb-2">İletişim</span>
+                </h2>
+                <div class="max-w-2xl mx-auto bg-white rounded-xl shadow-md overflow-hidden">
+                    <div class="p-8 gradient-bg text-white">
+                        <h3 class="text-2xl font-bold mb-4">İletişime Geçin</h3>
+                        <p class="mb-6">
+                            Projelerim, iş birliği fırsatları veya herhangi bir soru için bana aşağıdaki kanallardan ulaşabilirsiniz.
+                        </p>
+                        <div class="space-y-4">
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 rounded-full bg-white bg-opacity-20 flex items-center justify-center mr-3">
+                                    <i class="fas fa-envelope text-white"></i>
+                                </div>
+                                <a href="mailto:izaydin0@gmail.com" class="hover:underline">izaydin0@gmail.com</a>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 rounded-full bg-white bg-opacity-20 flex items-center justify-center mr-3">
+                                    <i class="fab fa-github text-white"></i>
+                                </div>
+                                <a href="https://github.com/ZondaX63" target="_blank" class="hover:underline">github.com/ZondaX63</a>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 rounded-full bg-white bg-opacity-20 flex items-center justify-center mr-3">
+                                    <i class="fab fa-linkedin-in text-white"></i>
+                                </div>
+                                <a href="https://linkedin.com/in/izzet-aydın-556087203" target="_blank" class="hover:underline">linkedin.com/in/izzet-aydın-556087203</a>
+                            </div>
+                        </div>
                     </div>
-                    <h3>Email</h3>
-                    <p><a href="mailto:mail@izzetaydin.net">mail@izzetaydin.net</a></p>
-                </div>
-                
-                <div class="contact-item fade-in">
-                    <div class="contact-icon">
-                        <i class="fas fa-phone"></i>
-                    </div>
-                    <h3>Telefon</h3>
-                    <p><a href="tel:+905332794494">(+90) 533 279 4494</a></p>
-                </div>
-                
-                <div class="contact-item fade-in">
-                    <div class="contact-icon">
-                        <i class="fab fa-linkedin-in"></i>
-                    </div>
-                    <h3>LinkedIn</h3>
-                    <p><a href="https://linkedin.com/in/izzet-aydın-556087203/" target="_blank">İzzet Aydın</a></p>
-                </div>
-                
-                <div class="contact-item fade-in">
-                    <div class="contact-icon">
-                        <i class="fab fa-github"></i>
-                    </div>
-                    <h3>GitHub</h3>
-                    <p><a href="https://github.com/izzetaydin" target="_blank">izzetaydin</a></p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-nav">
-                    <ul>
-                        <li><a href="#about">Hakkımda</a></li>
-                        <li><a href="#experience">İş Deneyimi</a></li>
-                        <li><a href="#education">Eğitim</a></li>
-                        <li><a href="#projects">Projeler</a></li>
-                        <li><a href="#skills">Beceriler</a></li>
-                        <li><a href="#contact">İletişim</a></li>
-                    </ul>
+    <footer class="bg-dark text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <a href="#hero" class="text-2xl font-bold flex items-center">
+                        <span class="text-accent mr-1">&lt;</span>İzzet Aydın<span class="text-accent ml-1">/&gt;</span>
+                    </a>
+                    <p class="text-gray-400 mt-2">Yazılım Mühendisi & Web Geliştirici</p>
                 </div>
                 
-                <div class="footer-social">
-                    <a href="https://linkedin.com/in/izzet-aydın-556087203/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="https://github.com/izzetaydin" target="_blank"><i class="fab fa-github"></i></a>
-                    <a href="mailto:mail@izzetaydin.net"><i class="fas fa-envelope"></i></a>
-                    <a href="https://wa.me/905332794494" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                <div class="flex space-x-4">
+                    <a href="https://github.com/ZondaX63" target="_blank" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-gray-700 transition-colors">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://linkedin.com/in/izzet-aydın-556087203" target="_blank" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-gray-700 transition-colors">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="mailto:izaydin0@gmail.com" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-gray-700 transition-colors">
+                        <i class="fas fa-envelope"></i>
+                    </a>
                 </div>
-                
-                <p class="copyright">© 2025 İzzet Aydın. Tüm hakları saklıdır.</p>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-6 pt-6 text-center text-gray-400">
+                <p>&copy; 2023 İzzet Aydın. Tüm hakları saklıdır.</p>
             </div>
         </div>
     </footer>
 
-    <!-- JavaScript -->
-    <script src="script.js"></script>
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="fixed bottom-6 right-6 w-12 h-12 rounded-full bg-primary text-white shadow-lg flex items-center justify-center opacity-0 invisible transition-all duration-300 hover:bg-secondary">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // Close mobile menu when clicking a link
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+        
+        // Scroll Animation
+        const sections = document.querySelectorAll('.section-fade');
+        
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+        
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+        
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+        
+        // Back to Top Button
+        const backToTopButton = document.getElementById('back-to-top');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.remove('opacity-0', 'invisible');
+                backToTopButton.classList.add('opacity-100', 'visible');
+            } else {
+                backToTopButton.classList.remove('opacity-100', 'visible');
+                backToTopButton.classList.add('opacity-0', 'invisible');
+            }
+        });
+        
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Active Navigation Link
+        const navLinks = document.querySelectorAll('.nav-link');
+        const sections2 = document.querySelectorAll('section');
+        
+        window.addEventListener('scroll', () => {
+            let current = '';
+            
+            sections2.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                
+                if (pageYOffset >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active-nav');
+                if (link.getAttribute('href').substring(1) === current) {
+                    link.classList.add('active-nav');
+                }
+            });
+        });
+        
+        // Project Modal
+        const projectModal = document.getElementById('project-modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalContent = document.getElementById('modal-content');
+        
+        function showProjectDetails(projectId) {
+            let title = '';
+            let content = '';
+            
+            if (projectId === 'project1') {
+                title = 'Motorcu Sosyal Medya Uygulaması';
+                content = `
+                    <div class="space-y-4">
+                        <p>Bu projede, motorcu kullanıcılar için özel olarak tasarlanmış bir sosyal medya ve rota paylaşım uygulaması geliştiriyorum. Uygulama, Flutter framework'ü kullanılarak cross-platform olarak geliştirilmekte ve backend tarafında Node.js ile MongoDB veritabanı kullanılmaktadır.</p>
+                        
+                        <h4 class="text-lg font-semibold">Özellikler:</h4>
+                        <ul class="list-disc pl-5 space-y-1">
+                            <li>Kullanıcıların anlık konum paylaşımı yapabilmesi</li>
+                            <li>Arkadaş listesi oluşturabilme</li>
+                            <li>Gönderiler ve hikâyeler paylaşabilme</li>
+                            <li>Motorcu rotalarını kaydetme ve paylaşma</li>
+                            <li>Grup sürüşleri organize etme</li>
+                        </ul>
+                        
+                        <h4 class="text-lg font-semibold">Kullanılan Teknolojiler:</h4>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-blue-100 text-primary px-3 py-1 rounded text-sm font-medium">Flutter</span>
+                            <span class="bg-blue-100 text-primary px-3 py-1 rounded text-sm font-medium">Dart</span>
+                            <span class="bg-blue-100 text-primary px-3 py-1 rounded text-sm font-medium">Node.js</span>
+                            <span class="bg-blue-100 text-primary px-3 py-1 rounded text-sm font-medium">Express</span>
+                            <span class="bg-blue-100 text-primary px-3 py-1 rounded text-sm font-medium">MongoDB</span>
+                            <span class="bg-blue-100 text-primary px-3 py-1 rounded text-sm font-medium">JWT Authentication</span>
+                            <span class="bg-blue-100 text-primary px-3 py-1 rounded text-sm font-medium">Google Maps API</span>
+                        </div>
+                    </div>
+                `;
+            } else if (projectId === 'project2') {
+                title = 'TurtleBot3 Temizlik Robotu';
+                content = `
+                    <div class="space-y-4">
+                        <p>Bu akademik projede, ROS Noetic ve TurtleBot3 kullanarak bir temizlik robotu simülasyonu geliştirdim. Robot, haritalama (SLAM), duvar takibi ve otonom dolaşım davranışlarını simülasyon ortamında başarıyla gerçekleştirebilmektedir.</p>
+                        
+                        <h4 class="text-lg font-semibold">Özellikler:</h4>
+                        <ul class="list-disc pl-5 space-y-1">
+                            <li>SLAM (Eşzamanlı Konumlandırma ve Haritalama) ile ortam haritası çıkarma</li>
+                            <li>Duvar takip algoritması ile sistematik temizlik rotası oluşturma</li>
+                            <li>Engel algılama ve çarpışma önleme</li>
+                            <li>Otonom dolaşım ve rota planlama</li>
+                        </ul>
+                        
+                        <h4 class="text-lg font-semibold">Kullanılan Teknolojiler:</h4>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-blue-100 text-primary px-3 py-1 rounded text-sm font-medium">ROS Noetic</span>
+                            <span class="bg-blue-100 text-primary px-3 py-1 rounded text-sm font-medium">TurtleBot3</span>
+                            <span class="bg-blue-100 text-primary px-3 py-1 rounded text-sm font-medium">Gazebo Simülasyon</span>
+                            <span class="bg-blue-100 text-primary px-3 py-1 rounded text-sm font-medium">SLAM</span>
+                            <span class="bg-blue-100 text-primary px-3 py-1 rounded text-sm font-medium">Python</span>
+                            <span class="bg-blue-100 text-primary px-3 py-1 rounded text-sm font-medium">C++</span>
+                        </div>
+                    </div>
+                `;
+            } else if (projectId === 'project3') {
+                title = 'War Strategy Optimization';
+                content = `
+                    <div class="space-y-4">
+                        <p>Bu akademik projede, War Strategy Optimization algoritmasını ISOLET veri seti üzerinde kullanarak özellik seçimi yaptım ve bu işlemde cuML (NVIDIA RAPIDS) ile GPU hızlandırma sağladım.</p>
+                        
+                        <h4 class="text-lg font-semibold">Proje Detayları:</h4>
+                        <ul class="list-disc pl-5 space-y-1">
+                            <li>ISOLET veri seti üzerinde özellik seçimi ve boyut indirgeme</li>
+                            <li>War Strategy Optimization algoritmasının implementasyonu</li>
+                            <li>GPU hızlandırma ile işlem süresinin optimize edilmesi</li>
+                            <li>Sonuçların analizi ve değerlendirilmesi</li>
+                        </ul>
+                        
+                        <h4 class="text-lg font-semibold">Kullanılan Teknolojiler:</h4>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-blue-100 text-primary px-3 py-1 rounded text-sm font-medium">Python</span>
+                            <span class="bg-blue-100 text-primary px-3 py-1 rounded text-sm font-medium">NVIDIA RAPIDS</span>
+                            <span class="bg-blue-100 text-primary px-3 py-1 rounded text-sm font-medium">cuML</span>
+                            <span class="bg-blue-100 text-primary px-3 py-1 rounded text-sm font-medium">Pandas</span>
+                            <span class="bg-blue-100 text-primary px-3 py-1 rounded text-sm font-medium">NumPy</span>
+                            <span class="bg-blue-100 text-primary px-3 py-1 rounded text-sm font-medium">Scikit-learn</span>
+                        </div>
+                    </div>
+                `;
+            } else if (projectId === 'project4') {
+                title = 'Minimal API Servisleri';
+                content = `
+                    <div class="space-y-4">
+                        <p>Bu kişisel projelerimde, Python, SQLite ve JSON tabanlı veri yönetimi gibi teknolojilerle minimal API servisleri geliştiriyor, küçük sistemleri uçtan uca inşa etmeyi deniyorum.</p>
+                        
+                        <h4 class="text-lg font-semibold">Proje Detayları:</h4>
+                        <ul class="list-disc pl-5 space-y-1">
+                            <li>Hafif ve hızlı API servisleri tasarımı</li>
+                            <li>SQLite ile yerel veritabanı yönetimi</li>
+                            <li>JSON tabanlı veri alışverişi</li>
+                            <li>Minimal bağımlılıklarla çalışan sistemler</li>
+                            <li>Temiz kod ve SOLID prensiplerine uygun geliştirme</li>
+                        </ul>
+                        
+                        <h4 class="text-lg font-semibold">Kullanılan Teknolojiler:</h4>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-blue-100 text-primary px-3 py-1 rounded text-sm font-medium">Python</span>
+                            <span class="bg-blue-100 text-primary px-3 py-1 rounded text-sm font-medium">Flask/FastAPI</span>
+                            <span class="bg-blue-100 text-primary px-3 py-1 rounded text-sm font-medium">SQLite</span>
+                            <span class="bg-blue-100 text-primary px-3 py-1 rounded text-sm font-medium">JSON</span>
+                            <span class="bg-blue-100 text-primary px-3 py-1 rounded text-sm font-medium">RESTful API</span>
+                        </div>
+                    </div>
+                `;
+            } else if (projectId === 'project5') {
+                title = 'WordPress Web Siteleri';
+                content = `
+                    <div class="space-y-4">
+                        <p>Freelance web geliştirici olarak, çeşitli müşteriler için WordPress tabanlı web siteleri tasarladım ve geliştirdim. Bu projeler, kullanıcı dostu arayüzler ve işlevsel çözümler sunmayı amaçlamaktadır.</p>
+                        
+                        <h4 class="text-lg font-semibold">Proje Detayları:</h4>
+                        <ul class="list-disc pl-5 space-y-1">
+                            <li>Müşteri ihtiyaçlarına göre özelleştirilmiş WordPress temaları</li>
+                            <li>Responsive tasarım ile tüm cihazlarda uyumlu çalışma</li>
+                            <li>SEO optimizasyonu</li>
+                            <li>Özel eklenti geliştirme ve entegrasyonu</li>
+                            <li>İçerik yönetim sistemi eğitimi</li>
+                        </ul>
+                        
+                        <h4 class="text-lg font-semibold">Kullanılan Teknolojiler:</h4>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-blue-100 text-primary px-3 py-1 rounded text-sm font-medium">WordPress</span>
+                            <span class="bg-blue-100 text-primary px-3 py-1 rounded text-sm font-medium">PHP</span>
+                            <span class="bg-blue-100 text-primary px-3 py-1 rounded text-sm font-medium">HTML/CSS</span>
+                            <span class="bg-blue-100 text-primary px-3 py-1 rounded text-sm font-medium">JavaScript</span>
+                            <span class="bg-blue-100 text-primary px-3 py-1 rounded text-sm font-medium">MySQL</span>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            modalTitle.textContent = title;
+            modalContent.innerHTML = content;
+            projectModal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeProjectModal() {
+            projectModal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+        
+        // Close modal when clicking outside
+        projectModal.addEventListener('click', (e) => {
+            if (e.target === projectModal) {
+                closeProjectModal();
+            }
+        });
+        
+        // Contact Form Submission
+        const contactForm = document.getElementById('contact-form');
+        
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+            
+            // This is a demo form - in a real application, you would send this data to a server
+            alert(`Teşekkürler ${name}! Maalesef! Bu servis şu anda kullanım dışıdır.`);
+            contactForm.reset();
+        });
+    </script>
 </body>
 </html>
